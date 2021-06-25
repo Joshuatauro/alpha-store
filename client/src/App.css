@@ -1,0 +1,13 @@
+#main{
+  transition: 200ms all;
+}
+
+#input:focus ~ #main,
+#input:valid ~ #main{
+  top: 0.25rem;
+  font-size: 0.70rem;
+  font-weight: 900;
+  margin: 0;
+  color: #374151;
+}
+
