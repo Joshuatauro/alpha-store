@@ -1,31 +1,44 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
+
 import '../App.css'
 
+
 const SignUp= () => {
+  const history = useHistory()
+  const { signup } = useContext(AuthContext)
+
   const [viewing, isViewing] = useState(false)
   const [reViewing, isReViewing] = useState(false)
-
 
   const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-
   const [password, setPassword] = useState('')
   const [rePassword, setRePassword] = useState('')
   const [remember, setRemember] = useState(false)
 
   const [errors, setErrors] = useState()
 
+  const [loading, setLoading] = useState(false)
+
   const handleSignupSubmit = async(e) => {
+    setErrors(null)
+    setLoading(true)
     e.preventDefault()
     try{
-      const { data } = await axios.post('http://localhost:5000/api/auth/signup', {email,firstName, lastName ,password,remember, rePassword}, {withCredentials: true})
-      //handle logic for logging the user in
-      console.log(data)
+      const logUserIn = await signup(firstName, lastName, email, password, remember, rePassword)
+      if(logUserIn){
+        setLoading(false)
+        history.push('/')
+      }
     } catch(err) {
+      setLoading(false)
       setErrors(err.response.data.message)
-      
+
     }
   }
 
@@ -90,8 +103,14 @@ const SignUp= () => {
           {
           errors ? <h1 className="text-sm bg-red-500 text-white font-medium px-2 py-2">{errors}</h1> : ""
           }
-          <button type="submit"  className="bg-indigo-700 w-full h-12 text-white mb-10 font-semibold rounded-md">LETS GO</button>
-        </form>
+          {
+            loading ? (
+              <div className="bg-indigo-700 w-full h-12 text-white cursor-not-allowed font-bold rounded-md flex justify-center items-center uppercase"><AiOutlineLoading3Quarters className="animate-spin mr-2" /> Confirming.... </div>
+            ) : (
+              <button type="submit" className="bg-indigo-700 w-full h-12 text-white font-bold rounded-md">LETS GO</button>
+            )
+          }        
+          </form>
       </div>
     </section>
   )

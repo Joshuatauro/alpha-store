@@ -1,23 +1,37 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import '../App.css'
-
+import { AuthContext } from '../context/AuthContext'
 const Login= () => {
+  const history = useHistory()
+  const { logIn } = useContext(AuthContext)
   const [viewing, isViewing] = useState(false)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
 
+  const [loading, setIsLoading] = useState(false)
+
+  const [errors, setErrors] = useState()
 
   const handleLoginSubmit = async(e) => {
+    setErrors(null)
+    setIsLoading(true)
     e.preventDefault()
     try{
-      const { data } = await axios.post('/api/auth/login', {email, password, remember}, {withCredentials: true})
-      //handle logic for logging the user in
-      console.log(data)
+      const logUserIn = await logIn(email, password, remember)
+
+      if(logUserIn){
+        setIsLoading(false)
+        history.push('/')
+      }
     } catch(err) {
-      console.log(err.response.message)
+      setIsLoading(false)
+      setErrors(err.response.data.message)
+
     }
   }
 
@@ -53,7 +67,16 @@ const Login= () => {
             <input type="checkbox" size="5-10 w-10" checked={remember} onChange={e => setRemember(e.target.checked)}/>
             <p htmlFor="" className="text-xs ml-1 mb-0.5 font-semibold uppercase text-gray-700">Remember Me?</p>
           </div>
-          <button type="submit"  className="bg-indigo-700 w-full h-12 text-white font-bold rounded-md">LETS GO</button>
+          {
+            errors ? <h1 className="text-sm bg-red-500 text-white font-medium px-2 mb-1 rounded-md py-2">{errors}</h1> : ""
+          }
+          {
+            loading ? (
+              <div className="bg-indigo-700 w-full h-12 text-white cursor-not-allowed font-bold rounded-md flex justify-center items-center uppercase"><AiOutlineLoading3Quarters className="animate-spin mr-2" /> Confirming.... </div>
+            ) : (
+              <button type="submit" className="bg-indigo-700 w-full h-12 text-white font-bold rounded-md">LETS GO</button>
+            )
+          }
         </form>
       </div>
     </section>
