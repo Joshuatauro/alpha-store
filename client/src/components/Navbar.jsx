@@ -35,7 +35,7 @@ const Navbar = () => {
             <Link to="/login" className="text-header font-semibold transition-all duration-300 mx-3 hover:text-indigo-700">LOGIN</Link>
           </li>
           <li>
-            <Link to="/login" className="text-header font-semibold bg-primary-gray rounded-md px-5 py-3 transition-all duration-300 hover:bg-indigo-700 hover:text-white">SIGNUP</Link>
+            <Link to="/signup" className="text-header font-semibold bg-primary-gray rounded-md px-5 py-3 transition-all duration-300 hover:bg-indigo-700 hover:text-white">SIGNUP</Link>
           </li>
         </ul>
       </div>

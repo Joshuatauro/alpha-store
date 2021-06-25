@@ -7,13 +7,17 @@ const Login= () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [remember, setRemember] = useState(false)
+
 
   const handleLoginSubmit = async(e) => {
+    e.preventDefault()
     try{
-      const { data } = await axios.post('/api/auth/login', {email, password}, {withCredentials: true})
+      const { data } = await axios.post('/api/auth/login', {email, password, remember}, {withCredentials: true})
       //handle logic for logging the user in
-    } catch {
-
+      console.log(data)
+    } catch(err) {
+      console.log(err.response.message)
     }
   }
 
@@ -44,6 +48,10 @@ const Login= () => {
                 )
               }
             </div>
+          </div>
+          <div className="flex items-center mb-2">
+            <input type="checkbox" size="5-10 w-10" checked={remember} onChange={e => setRemember(e.target.checked)}/>
+            <p htmlFor="" className="text-xs ml-1 mb-0.5 font-semibold uppercase text-gray-700">Remember Me?</p>
           </div>
           <button type="submit"  className="bg-indigo-700 w-full h-12 text-white font-bold rounded-md">LETS GO</button>
         </form>
