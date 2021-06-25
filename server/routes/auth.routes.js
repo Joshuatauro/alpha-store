@@ -14,10 +14,14 @@ router.post('/signup', async(req, res) => {
   const firstName = req.body.firstName
   const lastName = req.body.lastName
   const password = req.body.password
+  const rePassword = req.body.rePassword
+  const shouldRemember = req.body.remember
 
   try{
 
-    if(!email || !firstName || !lastName) return res.status(401).json({message: "Please enter all the fields"})
+    if(!email || !firstName || !lastName || !rePassword) return res.status(401).json({message: "Please enter all the fields"})
+
+    if(password !== rePassword) return res.status(401).json({message: "Make sure both entered passwords are correct"})
 
     const doesUserExists = await User.findOne({email}) //searches if any email field with user entered email
 
@@ -45,8 +49,8 @@ router.post('/signup', async(req, res) => {
       }, process.env.JWT_SECRET
     )
 
-    //Sending HTTP cookie
-    res.cookie('authToken', authToken, { httpOnly: true } ).json({message: "Logged in successfully", logUserIn: true})
+    //Sending HTTP cookie which expir
+    res.cookie('authToken', authToken, { httpOnly: true }, { expire: shouldRemember ? false : new Date() + 2000000 } ).json({message: "Logged in successfully", logUserIn: true})
 
   } catch(err) {
     res.status(400).json(
