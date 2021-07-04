@@ -23,12 +23,12 @@ router.post('/login', async(req, res) => {
     const authToken = jwt.sign(
       {
         userID: savedUserAccount._id,
-        isAdmin: process.env.IS_ADMIN
+        isAdmin: savedUserAccount.isAdmin
       }, process.env.JWT_SECRET
     )
 
     //Sending HTTP cookie which expires
-    res.cookie('authToken', authToken, { httpOnly: true }, { expire: remember ? false : new Date() + 2000000 } ).json({message: "Logged in successfully", logUserIn: true, isAdmin: savedUserAccount.isAdmin, firstName: savedUserAccount.firstName, lastName: savedUserAccount.lastName})
+    res.cookie('authToken', authToken, { httpOnly: true }, { expire: remember ? false : new Date() + 2000000 } ).json({message: "Logged in successfully", logUserIn: true, isAdmin: savedUserAccount.isAdmin, firstName: savedUserAccount.firstName, lastName: savedUserAccount.lastName, wishList: savedUserAccount.wishList, cart: savedUserAccount.cart})
 
   } catch(err) {
     res.status(400).json(
@@ -93,6 +93,17 @@ router.post('/signup', async(req, res) => {
       }
     )
   }
+})
+
+router.get('/auth-status', async(req,res) => {
+  if(req.cookies.authToken) {
+    const userID = req.userID
+    const {isAdmin, cart, wishList} = await User.findById(userID)
+    res.json({isVerified: true ,name: req.name, userID, isAdmin, cart, wishList})
+  }else {
+    res.json({isVerified: false})
+  }
+
 })
 
 module.exports = router
