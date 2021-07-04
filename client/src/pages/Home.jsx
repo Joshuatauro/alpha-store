@@ -1,7 +1,51 @@
 import React from 'react'
 import Testimonial from '../components/Testimonial'
-
+import { Link } from 'react-router-dom'
 const Home = () => {
+
+  const catArray = [
+    {
+      name: "Gaming mice",
+      imgUrl: "1.png",
+      url: "mice"
+    },
+    {
+      name: "CPU",
+      imgUrl: "2.png",
+      url: "cpu"
+    },
+    {
+      name: "Headphones",
+      imgUrl: "3.png",
+      url: "headphones"
+    },
+    {
+      name: "Mobiles",
+      imgUrl: "4.png",
+      url: "mice"
+    },
+    {
+      name: "Cooler",
+      imgUrl: "5.png",
+      url: "cooler"
+    },
+    {
+      name: "Gaming chair",
+      imgUrl: "6.png",
+      url: "chair"
+    },
+    {
+      name: "Keyboards",
+      imgUrl: "7.png",
+      url: "keyboards"
+    },
+    {
+      name: "case",
+      imgUrl: "8.png",
+      url: "case"
+    }
+  ]
+
   return (
     <section className="mx-auto mt-20 font-barlow ">
       <div className="w-11/12  mx-auto grid grid-cols-5">
@@ -20,7 +64,7 @@ const Home = () => {
             </button>
           </div>
         </div>
-        <img className=" rounded-md object-contain w-full h-auto col-span-2 " src="https://images.unsplash.com/photo-1544652478-6653e09f18a2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80" alt="" />
+        <img className=" rounded-md object-contain w-full h-auto col-span-2 " src="https://images.unsplash.com/photo-1512400930990-e0bc0bd809df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80" alt="" />
       </div>
 
       <div className="bg-indigo-700 py-10 my-20 rounded-md text-white">
@@ -45,56 +89,24 @@ const Home = () => {
 
       <div className="bg-white py-10 my-20 rounded-md text-header">
         <div className="w-11/12 m-auto">
+          <h1 className="mb-8 uppercase text-3xl font-black">Our categories</h1>
 
-          <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            <li className="w-full">
-              <article className=" mx-auto rounded-t-md w-full shadow-lg bg-indigo-700 cursor-pointer">
-                <img className="object-cover rounded-t-lg w-full h-56" src="https://images.unsplash.com/photo-1562819606-b7a0ebd7e7c5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="avatar" />
-                <div className="py-5 text-center ">
-                    <span className="text-lg text-white font-bold uppercase">Mechanical Keyboards</span>
-                </div>
-              </article>
-            </li>
-            <li  className="w-full">
-              <article className="w-full  mx-auto rounded-t-md shadow-lg bg-indigo-700  cursor-pointer">
-                <img className="object-cover rounded-t-md w-full h-56" src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="avatar" />
-                <div className="py-5 text-center">
-                    <span className="text-lg text-white font-bold uppercase">CPU</span>
-                </div>
-              </article>
-            </li>
-            <li className="w-full">
-              <article className="w-full mx-auto rounded-t-md shadow-lg bg-indigo-700 cursor-pointer">
-                <img className="object-cover rounded-t-md w-full h-56" src="https://images.unsplash.com/photo-1590410413989-335162b01314?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="avatar" />
-                <div className="py-5 text-center">
-                    <span className="text-lg text-white font-bold uppercase">Monitors</span>
-                </div>
-              </article>
-            </li>
-            <li className="w-full">
-              <article className=" mx-auto rounded-t-md w-full shadow-lg bg-indigo-700 cursor-pointer">
-                <img className="object-cover rounded-t-lg w-full h-56" src="https://images.pexels.com/photos/2115256/pexels-photo-2115256.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="avatar" />
-                <div className="py-5 text-center ">
-                    <span className="text-lg text-white font-bold uppercase">Gaming mouse</span>
-                </div>
-              </article>
-            </li>
-            <li  className="w-full">
-              <article className="w-full  mx-auto rounded-t-md shadow-lg bg-indigo-700 cursor-pointer">
-                <img className="object-cover rounded-t-md w-full h-56" src="https://images.unsplash.com/photo-1581432079854-2f6d5678b478?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80" alt="avatar" />
-                <div className="py-5 text-center">
-                    <span className="text-lg text-white font-bold uppercase">Gaming Headphones</span>
-                </div>
-              </article>
-            </li>
-            <li className="w-full">
-              <article className="w-full mx-auto rounded-t-md shadow-lg bg-indigo-700 cursor-pointer">
-                <img className="object-cover rounded-t-md w-full h-56" src="https://images.unsplash.com/photo-1595044537698-6edf5d4f133e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="avatar" />
-                <div className="py-5 text-center">
-                    <span className="text-lg text-white font-bold uppercase">Keycaps</span>
-                </div>
-              </article>
-            </li>
+          <ul className="grid grid-cols-2 lg:grid-cols-4 gap-5 gap-y-9">
+            {
+              catArray.map(({name, imgUrl, url}, index) => {
+                return(
+                  <li className="relative bg-indigo-700 rounded-md py-5" key="index">
+                    <Link to={`/category/${url}`}>
+                      <div className=" w-11/12 m-auto">
+                        <img src={`/${imgUrl}`} alt="" className="absolute mt-1 -top-10 md:-top-6 h-24 lg:h-28  right-0" />
+                        <h1 className="uppercase text-xl font-bold text-white">{name}</h1>
+                        <Link className="uppercase text-sm font-medium text-white">Check it out</Link>
+                      </div>
+                    </Link>
+                  </li>
+                )
+                })
+            }
           </ul>
         </div>
       </div>
