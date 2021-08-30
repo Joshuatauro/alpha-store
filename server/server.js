@@ -42,11 +42,11 @@ app.use('/api/products', require('./routes/products.routes'))
 
 app.listen(PORT, () => console.log('Server is up and running'))
 
-mongoose.connect(
-  process.env.URI,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  (err) => {
-    if (err) return console.error(err);
-    console.log("Connected to mongo db");
-  }
-)
+// mongoose.connect(
+//   process.env.URI,
+//   { useNewUrlParser: true, useUnifiedTopology: true },
+//   (err) => {
+//     if (err) return console.error(err);
+//     console.log("Connected to mongo db");
+//   }
+// )

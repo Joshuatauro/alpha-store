@@ -13,7 +13,7 @@ const Login= () => {
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
 
-  const [loading, setIsLoading] = useState(true)
+  const [loading, setIsLoading] = useState(false)
 
   const [errors, setErrors] = useState()
 

@@ -39,7 +39,7 @@ const Navbar = () => {
             </svg>
 
           {
-            cart.length > 0 ? (
+            cart?.length > 0 ? (
               <span className="flex h-2 w-2 absolute -top-px right-px">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>

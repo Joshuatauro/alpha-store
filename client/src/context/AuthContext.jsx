@@ -14,20 +14,20 @@ export const AuthProvider = ({children}) => {
   const logIn = async(email, password, remember) => {
     const { data } = await axios.post('http://localhost:5000/api/auth/login', {email, password, remember}, {withCredentials: true})
     setIsLoggedIn(data.logUserIn)
-    setName(data.firstName+ " " + data.lastName)
-    setIsAdmin(data.isAdmin)
-    setWishList(data.wishList)
-    setCart(data.cart)
+    setName(data.name)
+    setIsAdmin(data.adminLevel)
+    setWishList(data.wishList || [])
+    setCart(data.cart || [])
     return data.logUserIn
   }
 
   const signup = async(firstName, lastName, email, password, remember, rePassword) => {
     const { data } = await axios.post('http://localhost:5000/api/auth/signup', {email,firstName, lastName ,password,remember, rePassword}, {withCredentials: true})
     setIsLoggedIn(data.logUserIn)
-    setName(data.firstName+ " " + data.lastName)
-    setIsAdmin(data.isAdmin)
-    setWishList(data.wishList)
-    setCart(data.cart)
+    setName(data.name)
+    setIsAdmin(data.adminLevel)
+    setWishList(data.wishList || [])
+    setCart(data.cart || [])
     return data.logUserIn
   }
 
@@ -39,7 +39,7 @@ export const AuthProvider = ({children}) => {
       setIsAdmin(data.isAdmin)
       setIsLoggedIn(data.isVerified || [])
       setWishList(data.wishList || [])
-      setCart(data.cart)
+      setCart(data.cart || [])
     }
   }
 

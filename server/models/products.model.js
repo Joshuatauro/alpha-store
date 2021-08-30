@@ -32,11 +32,15 @@ const productSchema = new mongoose.Schema(
           type: Number,
           required: true
         },
-        review: {
+        reviewBody: {
           type: String,
           required: true
         },
-        reviewed_at: {
+        reviewTitle: {
+          type: String,
+          required: true
+        },
+        reviewedAt: {
           type: Date,
           required: true
         }

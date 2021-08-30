@@ -10,9 +10,9 @@ const Home = () => {
       url: "mice"
     },
     {
-      name: "CPU",
+      name: "GPU",
       imgUrl: "2.png",
-      url: "cpu"
+      url: "gpu"
     },
     {
       name: "Headphones",
@@ -20,29 +20,9 @@ const Home = () => {
       url: "headphones"
     },
     {
-      name: "Mobiles",
-      imgUrl: "4.png",
-      url: "mice"
-    },
-    {
-      name: "Cooler",
-      imgUrl: "5.png",
-      url: "cooler"
-    },
-    {
-      name: "Gaming chair",
-      imgUrl: "6.png",
-      url: "chair"
-    },
-    {
       name: "Keyboards",
       imgUrl: "7.png",
       url: "keyboards"
-    },
-    {
-      name: "case",
-      imgUrl: "8.png",
-      url: "case"
     }
   ]
 
