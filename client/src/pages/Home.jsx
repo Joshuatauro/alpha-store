@@ -5,9 +5,9 @@ const Home = () => {
 
   const catArray = [
     {
-      name: "Gaming mice",
+      name: "Gaming mouse",
       imgUrl: "1.png",
-      url: "mice"
+      url: "mouse"
     },
     {
       name: "GPU",
@@ -17,12 +17,12 @@ const Home = () => {
     {
       name: "Headphones",
       imgUrl: "3.png",
-      url: "headphones"
+      url: "headphone"
     },
     {
       name: "Keyboards",
       imgUrl: "7.png",
-      url: "keyboards"
+      url: "keyboard"
     }
   ]
 

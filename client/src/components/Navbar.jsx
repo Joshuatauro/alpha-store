@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 
 const Navbar = () => {
-  const { checkUserLoggedIn, isLoggedIn, cart, isAdmin } = useContext(AuthContext)
+  const { checkUserLoggedIn, isLoggedIn, cartLength, isAdmin } = useContext(AuthContext)
 
   // const [isCart, setIsCart] = useState(true)
 
@@ -32,6 +32,7 @@ const Navbar = () => {
           }
         </div>
         <ul className="flex items-center">
+          <Link to="/cart">
           <li className="relative mr-1 flex items-center">
             <p className=" font-medium uppercase text-sm">Cart</p>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -39,7 +40,7 @@ const Navbar = () => {
             </svg>
 
           {
-            cart?.length > 0 ? (
+            cartLength > 0 ? (
               <span className="flex h-2 w-2 absolute -top-px right-px">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
@@ -47,6 +48,7 @@ const Navbar = () => {
             ) : ""
           }
           </li>
+          </Link> 
 
           {
             isLoggedIn ? (

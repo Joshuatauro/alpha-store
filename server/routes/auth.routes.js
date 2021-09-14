@@ -67,7 +67,6 @@ router.post('/signup', async(req, res) => {
 
     const salt = await bcrypt.genSalt()
     const passwordHash = await bcrypt.hash(password, salt)
-    console.log(process.env.ADMIN_LEVEL)
     const addNewUserQuery = await db.query('INSERT INTO users(email, hashed_password, name, admin_level, created_at) VALUES ($1, $2, $3, $4, $5) returning *', [email, passwordHash, firstName+' '+lastName, process.env.ADMIN_LEVEL, date])
 
     const authToken = jwt.sign(
@@ -90,15 +89,16 @@ router.post('/signup', async(req, res) => {
   }
 })
 
-// router.get('/auth-status', async(req,res) => {
-//   if(req.cookies.authToken) {
-//     const userID = req.userID
-//     const {isAdmin, cart, wishList} = await User.findById(userID)
-//     res.json({isVerified: true ,name: req.name, userID, adminLevel, cart, wishList})
-//   }else {
-//     res.json({isVerified: false})
-//   }
+router.get('/auth-status', async(req,res) => {
+  if(req.cookies.authToken) {
+    const userID = req.userID
+    console.log(userID)
+    const getUserDetailsQuery = await db.query('SELECT id, array_length(cart, 1) AS cart_length, array_length(wishlist, 1) AS wishlist_length, name, admin_level FROM users WHERE id = $1', [userID])
+    res.json({isVerified: true ,name: getUserDetailsQuery.rows[0].name, userID, adminLevel: getUserDetailsQuery.rows[0].admin_level, cartLength: getUserDetailsQuery.rows[0].cart_length , wishList: getUserDetailsQuery.rows[0].wishlist_length})
+  }else {
+    res.json({isVerified: false})
+  }
 
-// })
+})
 
 module.exports = router

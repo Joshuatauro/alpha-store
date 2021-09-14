@@ -7,7 +7,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Category from './pages/Categories';
 import SingleProduct from './pages/SingleProduct';
-
+import Cart from './pages/Cart'
 const App = () => {
   return (
     <div className="App font-barlow">
@@ -22,6 +22,7 @@ const App = () => {
               <Route path="/signup" exact component={SignUp} />
               <Route path="/category/:categoryName" exact component={Category} />
               <Route path="/category/:category/product/:productID" exact component={SingleProduct} />
+              <Route path="/cart" exact component={Cart} />
             </Switch>
           </div>
       </Router>

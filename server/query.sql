@@ -6,9 +6,9 @@ CREATE TABLE users (
   email VARCHAR UNIQUE NOT NULL,
   created_at TIMESTAMP NOT NULL,
   hashed_password VARCHAR NOT NULL,
-  wishlist JSON,
-  cart JSON,
-  addresses JSON,
+  wishlist JSON[],
+  cart JSON[],
+  addresses JSON[],
   admin_level INT NOT NULL DEFAULT 0 
 )
 

@@ -8,16 +8,16 @@ export const AuthProvider = ({children}) => {
   const [name, setName] = useState('')
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
-  const [wishList, setWishList] = useState([])
-  const [cart, setCart] = useState([])
+  const [wishListLength, setWishListLength] = useState(0)
+  const [cartLength, setCartLength] = useState(0)
 
   const logIn = async(email, password, remember) => {
     const { data } = await axios.post('http://localhost:5000/api/auth/login', {email, password, remember}, {withCredentials: true})
     setIsLoggedIn(data.logUserIn)
     setName(data.name)
     setIsAdmin(data.adminLevel)
-    setWishList(data.wishList || [])
-    setCart(data.cart || [])
+    setWishListLength(data.wishlistLength)
+    setCartLength(data.cartLength)
     return data.logUserIn
   }
 
@@ -26,8 +26,8 @@ export const AuthProvider = ({children}) => {
     setIsLoggedIn(data.logUserIn)
     setName(data.name)
     setIsAdmin(data.adminLevel)
-    setWishList(data.wishList || [])
-    setCart(data.cart || [])
+    setWishListLength(0)
+    setCartLength(0)
     return data.logUserIn
   }
 
@@ -38,8 +38,8 @@ export const AuthProvider = ({children}) => {
       setName(data.name)
       setIsAdmin(data.isAdmin)
       setIsLoggedIn(data.isVerified || [])
-      setWishList(data.wishList || [])
-      setCart(data.cart || [])
+      setWishListLength(data.wishlistLength)
+      setCartLength(data.cartLength)
     }
   }
 
@@ -48,7 +48,7 @@ export const AuthProvider = ({children}) => {
   return (
     <AuthContext.Provider value={
       {
-        name, isAdmin, isLoggedIn, logIn, signup, checkUserLoggedIn, cart, wishList
+        name, isAdmin, isLoggedIn, logIn, signup, checkUserLoggedIn, cartLength, wishListLength
       }
     }>
       {children}

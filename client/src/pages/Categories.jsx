@@ -9,7 +9,7 @@ const Category = () => {
 
   useEffect(() => {
     const getAllProducts = async() => {
-      const { data } = await axios.get(`http://localhost:5000/api/products/category/${categoryName}`)
+      const { data } = await axios.get(`http://localhost:5000/api/products/category/${categoryName}`, {withCredentials: true})
       setProducts(data.products)
       console.log(data)
     }

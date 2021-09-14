@@ -11,3 +11,24 @@
   color: #374151;
 }
 
+#input.special:focus ~ #main,
+#input.special:valid ~ #main{
+  top: 0.5rem;
+  font-size: 0.70rem;
+  font-weight: 600;
+  margin: 0;
+  color: #fff;
+}
+
+#main{
+  transition: 200ms all;
+}
+
+#input:focus ~ #main,
+#input:valid ~ #main{
+  top: 0.5rem;
+  font-size: 0.70rem;
+  font-weight: 700;
+  margin: 0;
+  color: #374151;
+}
