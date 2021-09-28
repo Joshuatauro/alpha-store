@@ -35,3 +35,10 @@ CREATE TABLE reviews (
   created_at TIMESTAMP NOT NULL
 );
 
+CREATE TABLE orders (
+  id VARCHAR NOT NULL DEFAULT uuid_generate_v4(),
+  user_id VARCHAR NOT NULL,
+  order_content JSON[],
+  is_delivered BOOLEAN,
+  created_at TIMESTAMP NOT NULL
+)

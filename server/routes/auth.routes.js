@@ -5,7 +5,6 @@ const User = require('../models/user.model')
 
 const db = require('../dbConfig')
 
-
 //logging user in
 router.post('/login', async(req, res) => {
   const email = req.body.email
@@ -55,6 +54,7 @@ router.post('/signup', async(req, res) => {
   const shouldRemember = req.body.remember
   const date = new Date()
 
+
   try{
 
     if(!email || !firstName || !lastName || !rePassword) return res.status(401).json({message: "Please enter all the fields"})
@@ -92,13 +92,21 @@ router.post('/signup', async(req, res) => {
 router.get('/auth-status', async(req,res) => {
   if(req.cookies.authToken) {
     const userID = req.userID
-    console.log(userID)
     const getUserDetailsQuery = await db.query('SELECT id, array_length(cart, 1) AS cart_length, array_length(wishlist, 1) AS wishlist_length, name, admin_level FROM users WHERE id = $1', [userID])
     res.json({isVerified: true ,name: getUserDetailsQuery.rows[0].name, userID, adminLevel: getUserDetailsQuery.rows[0].admin_level, cartLength: getUserDetailsQuery.rows[0].cart_length , wishList: getUserDetailsQuery.rows[0].wishlist_length})
   }else {
     res.json({isVerified: false})
   }
 
+})
+
+router.get('/logout', async(req, res) => {
+  res.clearCookie('authToken')
+  res.json(
+    {
+      logOutUser: true
+    }
+  )
 })
 
 module.exports = router

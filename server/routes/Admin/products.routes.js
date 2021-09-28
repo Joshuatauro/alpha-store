@@ -58,7 +58,6 @@ router.get('/:productID', async(req, res) => {
   
   try{
     const getSingleProductDetails = await db.query('SELECT * FROM products WHERE id = $1', [productID])
-  
     res.status(200).json({
       productDetails: getSingleProductDetails.rows[0],
     })
@@ -69,5 +68,25 @@ router.get('/:productID', async(req, res) => {
     })
   }
 })
+
+router.post('/update', async(req, res) => {
+  const {name, desc, price, salePrice, seller, saleValue, categoryValue, id} = req.body
+  console.log(name, desc, price)
+  console.log('HELLO IDHAR MAI IDHAR DEKH, ABEY DEKH NA BSDK KAHA DEKH RAHA HAI')
+  try{
+    const updateProductDetailsQuery = await db.query('UPDATE products SET name=$1, description=$2, price=$3, sale_price=$4, seller_name=$5, is_sale=$6, category=$7 WHERE id=$8', [name, desc, price, salePrice, seller, saleValue, categoryValue, id])
+
+    res.status(200).json({
+      updatedProductDetails: updateProductDetailsQuery.rows[0],
+      wasSuccess: true
+    })
+
+  } catch(err) {
+    res.status(200).json({
+      wasSuccess: false
+    })
+  }
+})
+
 
 module.exports = router

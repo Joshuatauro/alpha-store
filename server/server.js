@@ -22,8 +22,6 @@ const authMiddleware = async(req, res, next) => {
   if(!authToken) return next()
   try{
     const {isAdmin, name, userID} = await jwt.verify(authToken, process.env.JWT_SECRET)
-    console.log('here motherfucker')
-    console.log(userID, 'here')
     req.is_admin = isAdmin
     req.name = name
     req.userID = userID
