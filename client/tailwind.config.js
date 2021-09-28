@@ -9,7 +9,8 @@ module.exports = {
       colors: {
         'header': '#1F2937',
         'primary-gray': "#E5E7EB",
-        'red-primary': "#FF4655"
+        'red-primary': "#FF4655",
+        
       },
       fontSize: {
         tiny: "0.65rem",

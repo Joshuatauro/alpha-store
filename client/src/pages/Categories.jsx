@@ -21,8 +21,8 @@ const Category = () => {
       <h1 className="uppercase text-3xl font-black text-header border-b-4 border-indigo-700 max-w-min">{categoryName}</h1>
       <div className="grid grid-cols-3 gap-4 my-10">
         {
-          products.map(({name, desc, sale, sale_price, category, price, id, url}) => (
-            <ProductPreview key={id} name={name} url={url} sale={sale} category={category} price={price} id={id} salePrice={sale_price} />
+          products.map(({name, desc, is_sale, sale_price, category, price, id, url}) => (
+            <ProductPreview key={id} name={name} url={url} sale={is_sale} category={category} price={price} id={id} salePrice={sale_price} />
           ))
         }
       </div>
@@ -46,7 +46,7 @@ const ProductPreview = ({name, price, url, sale, category, salePrice, id, review
             <h1 className="uppercase font-bold">{name}</h1>
           </div>
           <div className="flex justify-between mt-2">
-            <span className="font-medium text-sm bg-indigo-700 text-white px-2 py-px rounded-md">${price}</span>
+            <span className="font-medium text-sm bg-indigo-700 text-white px-2 py-px rounded-md">&#8377;{sale ? salePrice : price}</span>
           {
             !isNaN(rating) && (<span>{rating}</span>)
           }

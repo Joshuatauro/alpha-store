@@ -49,7 +49,7 @@ const SingleProduct = () => {
         <div className=" h-96">
           <img src={productDetails?.url} alt="" className="h-full w-full object-contain" />
         </div>
-        <div className=" ">
+        <div>
           {
             productDetails?.is_sale && (
               <span className="bg-green-500 rounded-md min-w-max  text-white text-sm font-bold py-px px-2 ml-1  ">ON SALE</span>
@@ -71,8 +71,8 @@ const SingleProduct = () => {
               <label id="main" htmlFor="input" className="main-label  absolute left-3 text-white top-6 mb-0.5 font-bold text-xs">QUANTITY</label>
             </div>
             <div className="flex">
-              <button className="uppercase bg-indigo-700 px-7 rounded-md text-white font-black text-xl py-2" onClick={addToCart}>Add to Cart</button>
-              <button className="flex items-center ml-1 py-2 px-7 bg-primary-gray uppercase text-header font-black text-xl rounded-md">
+              <button className="uppercase bg-indigo-700 px-7 rounded-md text-white font-bold text-lg py-2" onClick={addToCart}>Add to Cart</button>
+              <button className="flex items-center ml-1 py-2 px-7 bg-primary-gray uppercase text-header font-bold text-lg rounded-md">
                 Add to Wishlist
               </button>
             </div>
