@@ -48,7 +48,7 @@ export const AuthProvider = ({children}) => {
   return (
     <AuthContext.Provider value={
       {
-        name, isAdmin, isLoggedIn, logIn, signup, checkUserLoggedIn, cartLength, wishListLength
+        name, isAdmin, isLoggedIn, logIn, signup, checkUserLoggedIn, cartLength, wishListLength, setCartLength
       }
     }>
       {children}

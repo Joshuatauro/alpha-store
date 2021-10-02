@@ -1,11 +1,31 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
+
+import toast, { Toaster } from 'react-hot-toast';
+
+const toastOrderSuccess = () => toast.custom((t) => (
+  <div
+    className={`${
+      t.visible ? 'animate-enter' : 'animate-leave'
+    } max-w-md w-full bg-green-600 text-white shadow-lg rounded-md pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+  >
+    <div className="w-11/12 m-auto py-3">
+      Successfully placed the order. Look outside the window!
+    </div>
+  </div>
+))
+
+
 const Cart = () => {
+  const { setCartLength } = useContext(AuthContext)
   const history = useHistory()
   const [cart, setCart] = useState([])
   const [cartAmount, setCartAmount] = useState(0)
   const [deliveryFee, setDeliveryFee] = useState(0)
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const reducerFunction = (previousValue, currentValue) => previousValue + currentValue
   
@@ -13,7 +33,6 @@ const Cart = () => {
     const fetchCartItems = async() => {
       const { data } = await axios.get('http://localhost:5000/api/users/cart', { withCredentials: true })
       setCart(data.cart)
-      console.log(data.cart)
       
     }
     fetchCartItems()
@@ -41,20 +60,34 @@ const Cart = () => {
     }else {
       setCartAmount(0)
       setDeliveryFee(0)
+      setCartLength(0)
     }
   }
 
   const submitOrder = async() => {
     const orderObject = cart
+    setIsLoading(true)
     const {data} = await axios.post('http://localhost:5000/api/actions/submit-order', orderObject, { withCredentials: true })
   
     if(data.placedOrder){
+      toastOrderSuccess()
+      setIsLoading(false)
       history.push(`/order/${data.orderID}`)
+      setCartLength(0)
+    } else {
+      setIsLoading(false)
     }
   }
 
   return (
     <section className="w-11/12 m-auto">
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          duration:2000
+        }}
+        
+      />
       <h1 className="uppercase text-3xl font-black text-header border-b-4 border-indigo-700 max-w-min">CART</h1>
       <div className="grid grid-cols-3 gap-3 mt-5">
         <div className=" col-span-2 ">
@@ -82,7 +115,20 @@ const Cart = () => {
               </div>
             </div>
           </div>
-          <button onClick={submitOrder} className="uppercase bg-indigo-700 px-7 mt-3 w-full rounded-md text-white font-bold text-lg py-2">place order</button>
+          {
+            cart.length > 0 && (
+              <button onClick={submitOrder} className="uppercase hover:opacity-95 transition-all duration-200 bg-indigo-700 px-7 mt-3 w-full rounded-md text-white font-bold flex justify-center text-lg py-2">
+                {
+                  isLoading ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  ) : 'Place order'
+                }
+              </button>
+            )
+          }
+          
         </div>
       </div>
     </section>
