@@ -52,7 +52,7 @@ const Navbar = () => {
                     </svg>
                   </li>
                 </Link>
-                <Link>
+                <Link to="/orders">
                   <li className="flex items-center mx-1">
                     <p className="uppercase font-medium text-sm">Orders</p>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

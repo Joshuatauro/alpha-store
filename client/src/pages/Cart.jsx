@@ -40,8 +40,9 @@ const Cart = () => {
 
   useEffect(() => {
     if(cart.length > 0){
-      setCartAmount(cart.map(item => item.is_sale ? item.sale_price * item.quantity : item.price * item.quantity ).reduce(reducerFunction))
-      setDeliveryFee(cartAmount > 2000 ? 0 : 200)
+      const cartAmountCalc = cart.map(item => item.price * item.quantity)?.reduce(reducerFunction)
+      setCartAmount(cartAmountCalc)
+      setDeliveryFee(cartAmountCalc > 2000 ? 0 : 200)
     }
   }, [cart])
 
@@ -67,7 +68,7 @@ const Cart = () => {
   const submitOrder = async() => {
     const orderObject = cart
     setIsLoading(true)
-    const {data} = await axios.post('http://localhost:5000/api/actions/submit-order', orderObject, { withCredentials: true })
+    const {data} = await axios.post('http://localhost:5000/api/actions/submit-order', {orderObject, total: cartAmount + deliveryFee + cartAmount*0.05 }, { withCredentials: true })
   
     if(data.placedOrder){
       toastOrderSuccess()
