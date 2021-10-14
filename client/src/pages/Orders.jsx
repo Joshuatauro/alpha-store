@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Moment from 'react-moment';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Orders = () => {
   const history = useHistory()
@@ -31,10 +32,6 @@ const Orders = () => {
 const OrderItem = ({orderContent, isDelivered, createdAt, id, total}) => {
   const history = useHistory()
 
-  const handleRouting = () => {
-    history.push(`/order/${id}`)
-  }
-  
   return (
     <article className="border border-indigo-600 shadow-md w-full py-3 rounded-md">
       <div className="w-11/12 m-auto">
@@ -58,9 +55,9 @@ const OrderItem = ({orderContent, isDelivered, createdAt, id, total}) => {
           <h1 className="text-header">₹{total}</h1>
         </div>
         <div className="flex ">
-          <button onClick={handleRouting} className=" mt-3 w-full justify-center uppercase rounded-md transition-all duration-200 hover:opacity-95 text-white mr-2 font-bold py-3 flex items-center bg-indigo-700 ">
+          <Link to={`/order/${id}`} className=" mt-3 w-full justify-center uppercase rounded-md transition-all duration-200 hover:opacity-95 text-white mr-2 font-bold py-3 flex items-center bg-indigo-700 ">
             Review Order
-          </button>
+          </Link>
         </div>
       </div>
     </article>

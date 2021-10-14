@@ -6,9 +6,9 @@
 #input:valid ~ #main{
   top: 0.25rem;
   font-size: 0.70rem;
-  font-weight: 900;
+  font-weight: 800;
   margin: 0;
-  color: #374151;
+  color: #333c49;
 }
 
 #input.special:focus ~ #main,
@@ -24,11 +24,3 @@
   transition: 200ms all;
 }
 
-#input:focus ~ #main,
-#input:valid ~ #main{
-  top: 0.5rem;
-  font-size: 0.70rem;
-  font-weight: 700;
-  margin: 0;
-  color: #374151;
-}
