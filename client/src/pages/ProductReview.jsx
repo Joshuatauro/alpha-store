@@ -48,8 +48,6 @@ const ReviewProduct = (props) => {
     }
   }
 
-
-
   const { url, id, price, salePrice, onSale, name } = props.location.state
 
   return (

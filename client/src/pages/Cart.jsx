@@ -3,20 +3,6 @@ import React, { useEffect, useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 
-import toast, { Toaster } from 'react-hot-toast';
-
-const toastOrderSuccess = () => toast.custom((t) => (
-  <div
-    className={`${
-      t.visible ? 'animate-enter' : 'animate-leave'
-    } max-w-md w-full bg-green-600 text-white shadow-lg rounded-md pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
-  >
-    <div className="w-11/12 m-auto py-3">
-      Successfully placed the order. Look outside the window!
-    </div>
-  </div>
-))
-
 
 const Cart = () => {
   const { setCartLength } = useContext(AuthContext)
@@ -71,7 +57,6 @@ const Cart = () => {
     const {data} = await axios.post('http://localhost:5000/api/actions/submit-order', {orderObject, total: cartAmount + deliveryFee + cartAmount*0.05 }, { withCredentials: true })
   
     if(data.placedOrder){
-      toastOrderSuccess()
       setIsLoading(false)
       history.push(`/order/${data.orderID}`)
       setCartLength(0)
@@ -82,13 +67,6 @@ const Cart = () => {
 
   return (
     <section className="w-11/12 m-auto">
-      <Toaster
-        position="bottom-right"
-        toastOptions={{
-          duration:2000
-        }}
-        
-      />
       <h1 className="uppercase text-3xl font-black text-header border-b-4 border-indigo-700 max-w-min">CART</h1>
       <div className="grid grid-cols-3 gap-3 mt-5">
         <div className=" col-span-2 ">

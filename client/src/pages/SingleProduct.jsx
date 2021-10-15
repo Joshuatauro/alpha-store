@@ -7,6 +7,7 @@ import { EditorState } from 'draft-js'
 import { convertFromRaw, convertToRaw } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import { AuthContext } from '../context/AuthContext'
+import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 
 
 import toast, { Toaster } from 'react-hot-toast';
@@ -37,7 +38,6 @@ const SingleProduct = () => {
 
   useEffect(() => {
     const getSingleProductDetails = async() => {
-
       const { data } = await axios.get(`http://localhost:5000/api/products/${productID}`, { withCredentials: true })
       console.log(data.productDetail)
       setProductDetails(data.productDetail)
@@ -46,6 +46,9 @@ const SingleProduct = () => {
           convertFromRaw(data.productDetail.description)
         )
       )
+
+      const reviewData = await axios.get(`http://localhost:5000/api/products/${productID}/reviews`, { withCredentials: true })
+      setReviews(reviewData.data.reviews)
     }
     getSingleProductDetails()
   }, [])
@@ -131,9 +134,16 @@ const SingleProduct = () => {
       </div>  
       <div className="my-10  ">
         <h1 className="uppercase text-3xl font-black text-header">Reviews</h1>
-        {
-          reviews?.map(({name, reviewTitle, reviewBody, rating, reviewedAt}) => <Review name={name} title={reviewTitle} body={reviewBody} rating={rating} reviewedAt={reviewedAt} />)
-        }
+        <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 1020: 2}} className="mt-3">
+          <Masonry gutter="15px"> 
+            {
+              reviews?.map(({name, title, review, rating, created_at}) => <Review name={name} title={title} review={review} rating={rating} createdAt={created_at} />)
+            }
+          </Masonry>
+        </ResponsiveMasonry>
+        <div className="grid grid-cols-2 gap-3 mt-3">
+          
+        </div>
       </div>  
       
     </section>
