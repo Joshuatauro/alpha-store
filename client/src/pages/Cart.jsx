@@ -32,8 +32,10 @@ const Cart = () => {
     }
   }, [cart])
 
-  const addToWishlist = async(id) => {
-    console.log(id)
+  const addToWishlist = async(productObject, id) => {
+    removeFromCart(id)
+    const { data } = axios.post('http://localhost:5000/api/actions/add-to-wishlist', { productDetails: productObject }, { withCredentials: true })
+    console.log(data)
   }
 
   const removeFromCart = async(id) => {
@@ -135,7 +137,7 @@ const CartItem = ({name, price, sale_price, is_sale, url, quantity, addToWishlis
                 <span className="text-white bg-indigo-600 p-1 font-semibold rounded-md text-sm">₹ {is_sale ? sale_price : price}</span>
               </div>
               <div className="flex">
-                <button onClick={e => addToWishlist(dataKey)} className="text-xs uppercase bg-gray-300 font-medium hover:bg-indigo-700 hover:text-white duration-300 transition-all px-2 py-2 rounded-md">Move to wishlist</button>
+                <button onClick={e => addToWishlist({name, price, sale_price, is_sale, url, id},dataKey)} className="text-xs uppercase bg-gray-300 font-medium hover:bg-indigo-700 hover:text-white duration-300 transition-all px-2 py-2 rounded-md">Move to wishlist</button>
                 <button onClick={e => removeFromCart(dataKey)} className="text-xs uppercase bg-gray-300 font-medium hover:bg-red-700 ml-2 hover:text-white duration-300 transition-all px-2 py-2 rounded-md">Remove item</button>
               </div>
             </div>

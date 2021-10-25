@@ -33,7 +33,6 @@ export const AuthProvider = ({children}) => {
 
   const checkUserLoggedIn = async() => {
     const { data } = await axios.get("http://localhost:5000/api/auth/auth-status", { withCredentials: true })
-    console.log(data)
     if(data.isVerified){  
       setName(data.name)
       setIsAdmin(data.isAdmin)
@@ -48,7 +47,7 @@ export const AuthProvider = ({children}) => {
   return (
     <AuthContext.Provider value={
       {
-        name, isAdmin, isLoggedIn, logIn, signup, checkUserLoggedIn, cartLength, wishListLength, setCartLength
+        name, isAdmin, isLoggedIn, logIn, signup, checkUserLoggedIn, cartLength, wishListLength, setCartLength, setWishListLength
       }
     }>
       {children}

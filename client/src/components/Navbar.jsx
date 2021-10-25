@@ -1,16 +1,13 @@
-import React,  { useContext, useEffect, useState } from 'react'
+import React,  { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 
 const Navbar = () => {
-  const { checkUserLoggedIn, isLoggedIn, cartLength, isAdmin } = useContext(AuthContext)
+  const { checkUserLoggedIn, isLoggedIn, cartLength } = useContext(AuthContext)
 
-  // const [isCart, setIsCart] = useState(true)
 
   useEffect(() => {
     checkUserLoggedIn()
-    const cartCount = localStorage.getItem('cart')
-    //change isCart on basis if cart is present or not
 
   }, [])
 

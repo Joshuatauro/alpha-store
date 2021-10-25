@@ -11,6 +11,7 @@ import Cart from './pages/Cart'
 import Orders from './pages/Orders';
 import SingleOrder from './pages/SingleOrder';
 import ReviewProduct from './pages/ProductReview';
+import Wishlist from './pages/Wishlist';
 const App = () => {
   return (
     <div className="App font-barlow">
@@ -29,6 +30,7 @@ const App = () => {
               <Route path="/orders" exact component={Orders} />
               <Route path="/order/:id" exact component={SingleOrder} />
               <Route path="/order/:id/review" exact component={ReviewProduct} />
+              <Route path="/wishlist" exact component={Wishlist} />
             </Switch>
           </div>
       </Router>
