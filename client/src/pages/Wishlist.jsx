@@ -6,7 +6,7 @@ import { AuthContext } from '../context/AuthContext'
 
 
 const Wishlist = () => {
-  const { setWishListLength } = useContext(AuthContext)
+  const { setWishlistLength, setCartLength } = useContext(AuthContext)
 
   const [wishlist, setWishlist] = useState([])
 
@@ -21,12 +21,13 @@ const Wishlist = () => {
   const addToCart = async(productObject, id) => {
     removeFromWishlist(id)
     const { data } = await axios.post('http://localhost:5000/api/actions/add-to-cart', {productDetails: productObject, quantity: 1}, {withCredentials: true})
-    
+    setCartLength(data.cartLength)
   }
 
   const removeFromWishlist = async(id) => {     
     const {data} = await axios.post(`http://localhost:5000/api/actions/remove-from-wishlist`, {indexPosition: id} , {withCredentials: true})
-    setWishlist(data.updatedWishlist)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    setWishlist(data.updatedWishlist)
+    setWishlistLength(data.updatedWishlist.length)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
   }
 
 

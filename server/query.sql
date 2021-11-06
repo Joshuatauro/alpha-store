@@ -30,7 +30,7 @@ CREATE TABLE reviews (
   user_id VARCHAR NOT NULL,
   product_id VARCHAR NOT NULL,
   title VARCHAR NOT NULL,
-  body VARCHAR NOT NULL,
+  review VARCHAR NOT NULL,
   rating VARCHAR NOT NULL,
   created_at TIMESTAMP NOT NULL
 );
@@ -40,5 +40,6 @@ CREATE TABLE orders (
   user_id VARCHAR NOT NULL,
   order_content JSON[],
   is_delivered BOOLEAN,
-  created_at TIMESTAMP NOT NULL
+  created_at TIMESTAMP NOT NULL,
+  total INT NOT NULL DEFAULT 0
 )

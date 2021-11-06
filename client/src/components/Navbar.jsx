@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 
 const Navbar = () => {
-  const { checkUserLoggedIn, isLoggedIn, cartLength } = useContext(AuthContext)
+  const { checkUserLoggedIn, isLoggedIn, cartLength, wishlistLength } = useContext(AuthContext)
 
 
   useEffect(() => {
@@ -42,11 +42,19 @@ const Navbar = () => {
             isLoggedIn ? (
               <> 
                 <Link to="/wishlist">
-                  <li className="flex items-center mx-1">
+                  <li className="flex relative items-center mx-1">
                     <p className="uppercase font-medium text-sm">Wishlist</p>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                     </svg>
+                    {
+                      wishlistLength > 0 ? (
+                        <span className="flex h-2 w-2 absolute -top-px right-px">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+                        </span>
+                      ) : ""
+                    }
                   </li>
                 </Link>
                 <Link to="/orders">

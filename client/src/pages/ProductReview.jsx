@@ -34,13 +34,16 @@ const ReviewProduct = (props) => {
   const [rating, setRating] = useState()
   const [review, setReview] = useState('')
 
+  const { url, productID, price, salePrice, onSale, name } = props.location.state
+
+
   const submitReview = async(e) => {
     e.preventDefault()
     const productObject = {
-      title, rating, review, product_id: id
+      title, rating, review, product_id: productID
     }
     const { data } = await axios.post('http://localhost:5000/api/actions/submit-review', productObject, {withCredentials: true})
-    console.log(data)
+
     if(data.wasSuccess){
       toastSubmittedReviewSuccess()
     } else{
@@ -48,7 +51,6 @@ const ReviewProduct = (props) => {
     }
   }
 
-  const { url, id, price, salePrice, onSale, name } = props.location.state
 
   return (
     <section className="w-11/12 m-auto">

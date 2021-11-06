@@ -36,11 +36,13 @@ const toastAddToWishlistSuccess = () => toast.custom((t) => (
 ))
 
 const SingleProduct = () => {
-  const {setCartLength, setWishListLength} = useContext(AuthContext)
+  const {setCartLength, setWishlistLength} = useContext(AuthContext)
   const { productID } = useParams()
   const [productDetails, setProductDetails] = useState()
   const [reviews, setReviews] = useState([])
   const [quantity, setQuantity] = useState(1)
+
+  const [addedToWishlist, setAddedToWishlist] = useState(false)
 
   const [cartLoading, setCartLoading] = useState(false)
 
@@ -79,14 +81,13 @@ const SingleProduct = () => {
 
   const addToWishlist = async() => {
     const { data } = await axios.post('http://localhost:5000/api/actions/add-to-wishlist', {productDetails}, {withCredentials: true})
-    if(data.addedToCart){
+    if(data.addedToWishlist){
       //* TOAST NOTIF SAYING SUCCESS
-      toastAddToWishlistSuccess()
+      setAddedToWishlist(true)
       setCartLoading(false)
-      setWishListLength(data.wishlistLength)
+      setWishlistLength(data.wishlistLength)
     } else {
       //* TOAST NOTIF SAYING ERROR
-      setCartLoading(false)
     }
   }
 
@@ -141,11 +142,26 @@ const SingleProduct = () => {
                 )
               }
               
-              <button onClick={addToWishlist} className="px-7 rounded-md text-gray-700 transition-all duration-200 hover:opacity-95 font-bold text-lg py-3 flex items-center bg-primary-gray ">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-              </button>
+              
+              { addedToWishlist ? 
+                (
+                <div className="px-7 rounded-md text-white transition-all uppercase duration-200 hover:opacity-95 font-bold text-lg py-3 flex items-center bg-green-600 ">
+                  Added to wishlist
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                ) 
+                : 
+                (
+                <button onClick={addToWishlist} className="px-7 rounded-md text-gray-700 transition-all uppercase duration-200 hover:opacity-95 font-bold text-lg py-3 flex items-center bg-primary-gray ">
+                  Add to wishlist
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </button>
+                )
+              }
             </div>
           </div>
         </div>

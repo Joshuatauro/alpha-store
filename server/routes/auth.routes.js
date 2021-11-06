@@ -14,7 +14,7 @@ router.post('/login', async(req, res) => {
   try{
     if(!email || !password) return res.status(401).json({message: "Please enter all the fields"})
 
-    const savedUserAccount = await db.query('SELECT email, hashed_password, admin_level FROM users WHERE email = $1', [email])
+    const savedUserAccount = await db.query('SELECT email, hashed_password, admin_level, name, id, array_length(wishlist,1) AS wishlist_length, array_length(cart,1) AS cart_length FROM users WHERE email = $1', [email])
 
     if(!(savedUserAccount.rowCount > 0)) return res.status(404).json({message: "Could not find any account with given email address, try creating a new account"})
   
@@ -31,7 +31,7 @@ router.post('/login', async(req, res) => {
     )
 
     //Sending HTTP cookie which expires
-    res.cookie('authToken', authToken, { httpOnly: true }, { expire: remember ? false : new Date() + 2000000 } ).json({message: "Logged in successfully", logUserIn: true, isAdmin: savedUserAccount.isAdmin, firstName: savedUserAccount.firstName, lastName: savedUserAccount.lastName, wishList: savedUserAccount.wishList, cart: savedUserAccount.cart})
+    res.cookie('authToken', authToken, { httpOnly: true }, { expire: remember ? false : new Date() + 2000000 } ).json({message: "Logged in successfully", logUserIn: true, isAdmin: savedUserAccount.rows[0].isAdmin, wishlistLength: savedUserAccount.rows[0].wishlist_length, cartLength: savedUserAccount.rows[0].cart_length})
 
   } catch(err) {
     res.status(400).json(
@@ -93,7 +93,8 @@ router.get('/auth-status', async(req,res) => {
   if(req.cookies.authToken) {
     const userID = req.userID
     const getUserDetailsQuery = await db.query('SELECT id, array_length(cart, 1) AS cart_length, array_length(wishlist, 1) AS wishlist_length, name, admin_level FROM users WHERE id = $1', [userID])
-    res.json({isVerified: true ,name: getUserDetailsQuery.rows[0].name, userID, adminLevel: getUserDetailsQuery.rows[0].admin_level, cartLength: getUserDetailsQuery.rows[0].cart_length , wishList: getUserDetailsQuery.rows[0].wishlist_length})
+
+    res.json({isVerified: true ,name: getUserDetailsQuery?.rows[0]?.name, userID, adminLevel: getUserDetailsQuery?.rows[0]?.admin_level, cartLength: getUserDetailsQuery?.rows[0]?.cart_length , wishlistLength: getUserDetailsQuery?.rows[0]?.wishlist_length})
   }else {
     res.json({isVerified: false})
   }
