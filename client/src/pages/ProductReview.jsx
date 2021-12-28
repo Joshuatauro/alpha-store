@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-
+import { useHistory } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast';
 
 const toastSubmittedReviewSuccess = () => toast.custom((t) => (
@@ -11,6 +11,18 @@ const toastSubmittedReviewSuccess = () => toast.custom((t) => (
   >
     <div className="w-11/12 m-auto py-3">
       Submitted your review! Thank you!
+    </div>
+  </div>
+))
+
+const toastRatingError = () => toast.custom((t) => (
+  <div
+    className={`${
+      t.visible ? 'animate-enter' : 'animate-leave'
+    } max-w-md w-full bg-red-600 text-white shadow-lg rounded-md pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+  >
+    <div className="w-11/12 m-auto py-3">
+      You can only rate the product on a scale of 1 to 5. Please make sure your rating is within the allowed range.
     </div>
   </div>
 ))
@@ -29,6 +41,7 @@ const toastSubmittedReviewFailure = () => toast.custom((t) => (
 
 
 const ReviewProduct = (props) => {
+  const history = useHistory()
 
   const [title, setTitle] = useState('')
   const [rating, setRating] = useState()
@@ -42,12 +55,19 @@ const ReviewProduct = (props) => {
     const productObject = {
       title, rating, review, product_id: productID
     }
-    const { data } = await axios.post('http://localhost:5000/api/actions/submit-review', productObject, {withCredentials: true})
 
-    if(data.wasSuccess){
-      toastSubmittedReviewSuccess()
+    if(rating > 0 && rating < 6){
+
+      const { data } = await axios.post('http://localhost:5000/api/actions/submit-review', productObject, {withCredentials: true})
+      
+      if(data.wasSuccess){
+        toastSubmittedReviewSuccess()
+        history.push(`/product/${productID}`)
+      } else{
+        toastSubmittedReviewFailure()
+      }
     } else{
-      toastSubmittedReviewFailure()
+      toastRatingError()
     }
   }
 

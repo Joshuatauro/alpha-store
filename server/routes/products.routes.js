@@ -1,6 +1,4 @@
 const router = require('express').Router()
-const Product = require('../models/products.model')
-const User = require('../models/user.model')
 const { cloudinary } = require('../cloudinary.config')
 const db = require('../dbConfig')
 
@@ -35,7 +33,7 @@ router.get('/:productID/reviews', async(req, res) => {
 
   try {
 
-    const getSingleProductReviewsQuery = await db.query('SELECT id, name, title, review, rating, created_at FROM reviews WHERE product_id = $1', [productID])
+    const getSingleProductReviewsQuery = await db.query('SELECT id, name, title, review, rating, created_at FROM reviews WHERE product_id = $1 ORDER BY created_at DESC ', [productID])
     res.status(200).json({reviews: getSingleProductReviewsQuery.rows, message: "Found item reviews successfully"})
     
   } catch (err){

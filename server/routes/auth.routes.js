@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const User = require('../models/user.model')
 
 const db = require('../dbConfig')
 
@@ -77,7 +76,7 @@ router.post('/signup', async(req, res) => {
       }, process.env.JWT_SECRET
     )
 
-    //Sending HTTP cookie which expir
+    //Sending HTTP cookie which expire
     res.cookie('authToken', authToken, { httpOnly: true }, { expire: shouldRemember ? false : new Date() + 2000000 } ).json({message: "Logged in successfully", logUserIn: true})
 
   } catch(err) {

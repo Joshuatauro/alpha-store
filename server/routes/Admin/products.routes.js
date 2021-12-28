@@ -1,6 +1,4 @@
 const router = require('express').Router()
-const Product = require('../../models/products.model')
-const User = require('../../models/user.model')
 const { cloudinary } = require('../../cloudinary.config')
 const db = require('../../dbConfig')
 
@@ -26,6 +24,7 @@ router.post('/add', async(req, res) => {
       }
       
     const addProductQuery = await db.query('INSERT INTO products (name, description, url, price, sale_price, category, is_sale, seller_name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [title, desc, cloudinaryImageURL, price, salePrice, category, onSale, sellerName])
+
     if(!addProductQuery) return res.status(400).json({message: "Could not add the product", isAdded: false })
     
     res.status(200).json({message: "Added the new product", product: addProductQuery.rows, isAdded: true})
@@ -71,8 +70,7 @@ router.get('/:productID', async(req, res) => {
 
 router.post('/update', async(req, res) => {
   const {name, desc, price, salePrice, seller, saleValue, categoryValue, id} = req.body
-  console.log(name, desc, price)
-  console.log('HELLO IDHAR MAI IDHAR DEKH, ABEY DEKH NA BSDK KAHA DEKH RAHA HAI')
+
   try{
     const updateProductDetailsQuery = await db.query('UPDATE products SET name=$1, description=$2, price=$3, sale_price=$4, seller_name=$5, is_sale=$6, category=$7 WHERE id=$8', [name, desc, price, salePrice, seller, saleValue, categoryValue, id])
 

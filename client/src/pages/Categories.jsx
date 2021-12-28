@@ -36,7 +36,7 @@ const ProductPreview = ({name, price, url, sale, category, salePrice, id, review
 
   return (
     <article  className="border-2 rounded-md relative border-indigo-700 shadow-sm text-header">
-      <Link to={`${category}/product/${id}`}>
+      <Link to={`/product/${id}`}>
         <div className="py-3 w-11/12 m-auto flex flex-col">
           <div className=" flex items-center justify-center h-44">
             <img src={url} alt="" className='object-contain w-11/12 h-full ' />

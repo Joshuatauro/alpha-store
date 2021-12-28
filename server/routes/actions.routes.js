@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const User = require('../models/user.model')
 
 const db = require('../dbConfig')
 
@@ -95,8 +94,8 @@ router.post('/submit-order', async(req, res) => {
 
     if(!userID) return res.status(400).json({message: 'Sign in or create an account to submit your order'})
 
-    const clearCartQuery = await db.query('UPDATE users SET cart = cart[0:0]')
-    const submitOrderQuery = await db.query('INSERT INTO orders (user_id, order_content, created_at, is_delivered, total) VALUES ($1, $2, $3, $4, $5) returning *', [userID, orderObject, new Date(), false, total])
+    const clearCartQuery = await db.query('UPDATE users SET cart = cart[0:0] WHERE id = $1', [userID])
+    const submitOrderQuery = await db.query('INSERT INTO orders (user_id, order_content, created_at, is_delivered, total) VALUES ($1, $2, $3, $4, $5) returning *', [userID, orderObject, new Date(), true, total])
     res.status(200).json({
       placedOrder: true,
       orderID: submitOrderQuery.rows[0].id

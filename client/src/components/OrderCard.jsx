@@ -20,16 +20,30 @@ const OrderCard = ({orderContent, isDelivered, createdAt, id, total}) => {
         </div>
         <div className="flex font-semibold uppercase text-sm">
           <h1 className="text-gray-600 ">Summary:</h1>
-          <h1 className="text-header">{orderContent.map(item => item.name+', ')}</h1>
+          <h1 className="text-header">{orderContent.map(item => {
+            const splitWord = item.name.split(' ')
+            console.log(splitWord)
+            return (
+              splitWord[splitWord.length-1]+', '
+            )
+          })}</h1>
         </div>
         <div className="flex font-semibold uppercase text-sm">
           <h1 className="text-gray-600 ">Billed Amount:</h1>
           <h1 className="text-header">₹{total}</h1>
         </div>
         <div className="flex ">
-          <Link to={`/order/${id}`} className=" mt-3 w-full justify-center uppercase rounded-md transition-all duration-200 hover:opacity-95 text-white mr-2 font-bold py-3 flex items-center bg-indigo-700 ">
-            Review Order
-          </Link>
+          {
+            isDelivered ? (
+              <Link to={`/order/${id}`} className=" mt-3 w-full justify-center uppercase rounded-md transition-all duration-200 hover:opacity-95 text-white mr-2 font-bold py-3 flex items-center bg-indigo-700 ">
+                Review Order
+              </Link>
+            ) : (
+              <Link className=" mt-3 w-full justify-center uppercase rounded-md transition-all duration-200 text-white mr-2 font-bold py-3 flex items-center bg-gray-700 cursor-not-allowed ">
+                Cant review yet
+              </Link>
+            )
+          }
         </div>
       </div>
     </article>

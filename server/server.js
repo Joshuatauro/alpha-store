@@ -4,7 +4,6 @@ const { urlencoded } = require('express')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken')
-const mongoose = require('mongoose')
 require('dotenv').config()
 
 // thisis a trial commit attempt~
@@ -45,5 +44,9 @@ app.use('/api/actions', require('./routes/actions.routes'))
 app.use('/api/users', require('./routes/users.routes'))
 
 app.use('/api/admin/products', require('./routes/Admin/products.routes'))
+app.use('/api/admin/statistics', require('./routes/Admin/statistics.routes'))
+app.use('/api/admin/orders', require('./routes/Admin/orders.routes'))
+app.use('/api/admin/users', require('./routes/admin/users.routes'))
+app.use('/api/admin/reviews', require('./routes/Admin/reviews.routes'))
 
 app.listen(PORT, () => console.log('Server is up and running'))

@@ -19,6 +19,7 @@ const Orders = () => {
   return (
     <section className="w-11/12 m-auto">
       <h1 className="uppercase text-3xl font-black text-header border-b-4 border-indigo-700 max-w-min">ORDERS</h1>
+      <p className="pt-1 text-header text-sm font-medium">Instant delivery is on, ie orders are dispatched as soon as placed</p>
       <div className="grid grid-cols-2 gap-3 my-10">
         {
           orders.map(({id, order_content, is_delivered, created_at, total}) => <OrderCard key={id} id={id} orderContent={order_content} isDelivered={is_delivered} total={total} createdAt={created_at} />)

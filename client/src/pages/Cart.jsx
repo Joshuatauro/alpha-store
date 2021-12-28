@@ -72,7 +72,7 @@ const Cart = () => {
       <h1 className="uppercase text-3xl font-black text-header border-b-4 border-indigo-700 max-w-min">CART</h1>
       <div className="grid grid-cols-3 gap-3 mt-5">
         <div className=" col-span-2 ">
-          {cart.length > 0 ? cart.map((item, index) => <CartItem key={item.id} dataKey={index} addToWishlist={addToWishlist} removeFromCart={removeFromCart} id={item.id} name={item.name} price={item.price} quantity={item.quantity} sale_price={item.sale_price} is_sale={item.is_sale} url={item.url} />) : ''}
+          {cart?.length > 0 ? cart.map((item, index) => <CartItem key={item.id} dataKey={index} addToWishlist={addToWishlist} removeFromCart={removeFromCart} id={item.id} name={item.name} price={item.price} quantity={item.quantity} sale_price={item.sale_price} is_sale={item.is_sale} url={item.url} />) : ''}
         </div>
         <div>
           <div className="w-full py-3  rounded-md bg-indigo-700 text-white">

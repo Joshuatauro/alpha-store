@@ -37,7 +37,8 @@ const SignUp= () => {
       }
     } catch(err) {
       setLoading(false)
-      setErrors(err.response.data.message)
+      if(err.response.data.message === 'duplicate key value violates unique constraint "users_email_key"')
+      setErrors('An account with entered email id already exists')
 
     }
   }
