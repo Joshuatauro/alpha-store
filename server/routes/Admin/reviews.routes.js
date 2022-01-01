@@ -7,7 +7,7 @@ router.get("/:id", async(req, res) => {
 
   try{
 
-    const getAllUsersReviewsQuery = await db.query("SELECT * FROM reviews WHERE user_id = $1 ORDER BY created_at DESC LIMIT 15", [userID])
+    const getAllUsersReviewsQuery = await db.query("SELECT * FROM reviews WHERE user_id = $1 ORDER BY created_at DESC LIMIT 10", [userID])
     res.status(200).json({
       userReviews: getAllUsersReviewsQuery.rows
     })

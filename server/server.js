@@ -48,5 +48,6 @@ app.use('/api/admin/statistics', require('./routes/Admin/statistics.routes'))
 app.use('/api/admin/orders', require('./routes/Admin/orders.routes'))
 app.use('/api/admin/users', require('./routes/admin/users.routes'))
 app.use('/api/admin/reviews', require('./routes/Admin/reviews.routes'))
+app.use('/api/admin/auth', require('./routes/admin/auth.routes'))
 
 app.listen(PORT, () => console.log('Server is up and running'))
